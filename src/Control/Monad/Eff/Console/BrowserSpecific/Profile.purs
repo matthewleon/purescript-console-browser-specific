@@ -21,7 +21,7 @@ import Data.Function (const)
 import Data.Functor ((<$>))
 import Data.Unit (Unit)
 
--- | Construct a `Profile` using `profile`
+-- | Construct a `Profile` using `profileLabeled`
 -- | and consume it with `profileEndLabeled`.
 -- |
 -- | See the example below.
