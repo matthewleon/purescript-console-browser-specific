@@ -32,7 +32,7 @@ newtype Profile = Profile String
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/profile
 -- | Example:
 -- | ``` purescript
--- | main :: forall eff. Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+-- | main :: forall eff. Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 -- | main = do
 -- |   prof <- profileLabeled "example"
 -- |   profileLabeledEnd prof
@@ -40,7 +40,7 @@ newtype Profile = Profile String
 profileLabeled
   :: forall eff.
      String
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Profile
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Profile
 profileLabeled label = const (Profile label) <$> profileLabeled' label
 
 -- | Stop a labeled profile.
@@ -49,13 +49,13 @@ profileLabeled label = const (Profile label) <$> profileLabeled' label
 profileEndLabeled
   :: forall eff.
      Profile
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 profileEndLabeled (Profile label) = profileEndLabeled' label
 
 foreign import profileLabeled'
   :: forall eff
    . String
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | Stop profiling using only a profile's label string.
 -- |
@@ -64,18 +64,18 @@ foreign import profileLabeled'
 foreign import profileEndLabeled'
   :: forall eff
    . String
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | Start an unlabeled profile.
 -- |
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/profile
 foreign import profile
   :: forall eff
-   . Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+   . Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | Stop the most recent profile.
 -- |
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
 foreign import profileEnd
   :: forall eff
-   . Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+   . Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit

@@ -9,7 +9,7 @@ module Control.Monad.Eff.Console.BrowserSpecific.Group (
 ) where
 
 import Control.Applicative (pure)
-import Control.Bind (bind)
+import Control.Bind (bind, discard)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE)
 import Control.Monad.Eff.Exception (EXCEPTION)
@@ -20,7 +20,7 @@ import Data.Unit (Unit)
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/group
 -- | Example:
 -- | ``` purescript
--- | main :: forall eff. Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+-- | main :: forall eff. Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 -- | main = do
 -- |   log "not indented"
 -- |   group do
@@ -30,8 +30,8 @@ import Data.Unit (Unit)
 -- | ```
 group
   :: forall eff a
-   . Eff (console :: CONSOLE, err :: EXCEPTION | eff) a
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) a
+   . Eff (console :: CONSOLE, exception :: EXCEPTION | eff) a
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) a
 group action = do
   group'
   res <- action
@@ -43,7 +43,7 @@ group action = do
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed
 -- | Example:
 -- | ``` purescript
--- | main :: forall eff. Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+-- | main :: forall eff. Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 -- | main = do
 -- |   log "not indented"
 -- |   groupCollapsed do
@@ -53,8 +53,8 @@ group action = do
 -- | ```
 groupCollapsed
   :: forall eff a
-   . Eff (console :: CONSOLE, err :: EXCEPTION | eff) a
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) a
+   . Eff (console :: CONSOLE, exception :: EXCEPTION | eff) a
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) a
 groupCollapsed action = do
   groupCollapsed'
   res <- action
@@ -64,14 +64,14 @@ groupCollapsed action = do
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/group
 foreign import group'
   :: forall eff
-   . Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+   . Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed
 foreign import groupCollapsed'
   :: forall eff
-   . Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+   . Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/groupEnd
 foreign import groupEnd'
   :: forall eff
-   . Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+   . Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit

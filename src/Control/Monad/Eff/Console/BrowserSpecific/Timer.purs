@@ -29,7 +29,7 @@ newtype Timer = Timer String
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/time
 -- | Example:
 -- | ``` purescript
--- | main :: forall eff. Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+-- | main :: forall eff. Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 -- | main = do
 -- |   timer <- time "example"
 -- |   timeEnd timer
@@ -37,7 +37,7 @@ newtype Timer = Timer String
 time
   :: forall eff.
      String
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Timer
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Timer
 time timerName = const (Timer timerName) <$> time' timerName
 
 -- | End a timer and write the timing message to the console.
@@ -46,13 +46,13 @@ time timerName = const (Timer timerName) <$> time' timerName
 timeEnd
   :: forall eff.
      Timer
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 timeEnd (Timer timerName) = timeEnd' timerName
 
 foreign import time'
   :: forall eff
    . String
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | End a timer using only its label string.
 -- |
@@ -61,4 +61,4 @@ foreign import time'
 foreign import timeEnd'
   :: forall eff
    . String
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit

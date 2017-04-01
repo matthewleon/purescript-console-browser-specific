@@ -24,7 +24,7 @@ counter = LabeledCounter
 -- | Increment and log a counter.
 -- |
 -- | ``` purescript
--- | main :: forall eff. Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+-- | main :: forall eff. Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 -- | main =
 -- |   let c = counter "example"
 -- |   countLabel c -- 1
@@ -33,15 +33,15 @@ counter = LabeledCounter
 countLabel
   :: forall eff.
      LabeledCounter
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 countLabel (LabeledCounter s) = countLabel' s
 
 -- | Increment and log the number of times this function has been called.
 foreign import count
   :: forall eff
-  .  Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  .  Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 foreign import countLabel'
   :: forall eff
    . String
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit

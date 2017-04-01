@@ -6,7 +6,7 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, errorShow, log)
 import Control.Monad.Eff.Exception (EXCEPTION, catchException)
 
-import Prelude (Unit, bind, void)
+import Prelude (Unit, bind, discard, void)
 
 -- most of this will print errors outside of a browser
 main :: Eff (console :: CONSOLE) Unit
@@ -26,7 +26,7 @@ main = do
     timeEnd timer
 
   logExceptionAsError do
-    time "example"
+    _ <- time "example"
     timeEnd' "example"
 
   logExceptionAsError do
@@ -62,6 +62,6 @@ main = do
   where
     logExceptionAsError
       :: forall eff a.
-         Eff (console :: CONSOLE, err :: EXCEPTION | eff) a
+         Eff (console :: CONSOLE, exception :: EXCEPTION | eff) a
       -> Eff (console :: CONSOLE | eff) Unit
     logExceptionAsError eff = catchException errorShow (void eff)

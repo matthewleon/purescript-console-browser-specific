@@ -26,7 +26,7 @@ import Data.Unit (Unit)
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/clear
 foreign import clear
   :: forall eff
-  .  Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  .  Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | Displays an interactive list of an object's properties.
 -- |
@@ -34,18 +34,18 @@ foreign import clear
 foreign import dir
   :: forall eff t
   .  t
-  -> Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | Add a marker in the browser's Timeline or Waterfall.
 -- |
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/timeStamp<Paste>
 foreign import timeStamp
   :: forall eff
-  .  Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  .  Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
 
 -- | Outputs a stack trace to the console.
 -- |
 -- | https://developer.mozilla.org/en-US/docs/Web/API/Console/trace
 foreign import trace
   :: forall eff
-  .  Eff (console :: CONSOLE, err :: EXCEPTION | eff) Unit
+  .  Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
