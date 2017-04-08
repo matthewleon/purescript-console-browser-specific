@@ -30,6 +30,9 @@ main = do
     timeEnd' "example"
 
   logExceptionAsError do
+    timeEff "another example" (log "time me")
+
+  logExceptionAsError do
     prof <- profileLabeled "example"
     profileEndLabeled prof
 

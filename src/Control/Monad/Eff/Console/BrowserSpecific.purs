@@ -11,7 +11,7 @@ module Control.Monad.Eff.Console.BrowserSpecific (
 , trace
 ) where
 
-import Control.Monad.Eff.Console.BrowserSpecific.Timer (Timer, time, timeEnd, timeEnd')
+import Control.Monad.Eff.Console.BrowserSpecific.Timer (Timer, time, timeEnd, timeEnd', timeEff)
 import Control.Monad.Eff.Console.BrowserSpecific.Profile (Profile, profile, profileEnd, profileLabeled, profileEndLabeled, profileEndLabeled')
 import Control.Monad.Eff.Console.BrowserSpecific.Count (LabeledCounter, count, countLabel, counter)
 import Control.Monad.Eff.Console.BrowserSpecific.Group (group, group', groupCollapsed, groupCollapsed', groupEnd')
