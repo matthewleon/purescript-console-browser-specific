@@ -12,7 +12,8 @@ module Control.Monad.Eff.Console.BrowserSpecific.Timer (
 , timeEff
 ) where
 
-import Control.Bind (bind)
+import Control.Applicative (pure)
+import Control.Bind (bind, discard)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE)
 import Control.Monad.Eff.Exception (EXCEPTION)
@@ -53,14 +54,15 @@ timeEnd (Timer timerName) = timeEnd' timerName
 
 -- | Time an effect, writing the timing message to the console.
 timeEff
-  :: forall eff.
+  :: forall a eff.
      String
-  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
-  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) Unit
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) a
+  -> Eff (console :: CONSOLE, exception :: EXCEPTION | eff) a
 timeEff timerName eff = do
   timer <- time timerName
-  _ <- eff
+  res <- eff
   timeEnd timer
+  pure res
 
 foreign import time'
   :: forall eff
